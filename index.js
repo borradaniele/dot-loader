@@ -5,6 +5,11 @@ const injectStyle = (template, css) => {
   return `\n<style>${css}</style>\n${template}`;
 }
 
+const t = `import { register, html } from 'dot';\n
+{{ script }}\n
+register({{ name }});\n
+export default {{ name }};`;
+
 module.exports = function (snowpackConfig, pluginOptions) {
   return {
     name: 'dot-loader',
@@ -15,22 +20,19 @@ module.exports = function (snowpackConfig, pluginOptions) {
     async load({ filePath }) {
       const code = await fs.readFile(filePath);
       const dom = parse(code);
+
       const script = dom.querySelector('script');
       const style = dom.querySelector('style');
       const template = dom.querySelector('template');
+
       if (!script) throw new Error('Component must specify at least a script tag');
       if (!template) throw new Error('Component must specify at least a template tag');
 
-      const injectedTemplate = injectStyle(template.innerHTML, style.innerText);
-    
-      let result = `import { register, html } from 'dot';
-${script.innerText}
-
-register(${script.getAttribute('data-name')});
-
-export default ${script.getAttribute('data-name')};
-      `;
-      result = result.replace('// dot:inject', `= () => html\`${injectedTemplate}\``)
+      const injectedTemplate = injectStyle(template.innerHTML, style.innerText);    
+      let result = t
+        .replace(/{{ script }}/gi, script.innerText)
+        .replace(/{{ name }}/gi, script.getAttribute('name'))
+        .replace('// dot:inject', `this.$template = () => html\`${injectedTemplate}\``);
       return result;
     },
   };
