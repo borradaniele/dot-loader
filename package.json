@@ -1,0 +1,22 @@
+{
+  "name": "dot-loader",
+  "version": "0.0.1",
+  "description": "A snowpack plugin to load dot components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borradaniele/dot-loader.git"
+  },
+  "author": "Daniele Borra <daniele.borra.93@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/borradaniele/dot-loader/issues"
+  },
+  "homepage": "https://github.com/borradaniele/dot-loader#readme",
+  "dependencies": {
+    "node-html-parser": "^2.0.0"
+  }
+}
