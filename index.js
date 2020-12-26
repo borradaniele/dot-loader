@@ -23,14 +23,14 @@ module.exports = function (snowpackConfig, pluginOptions) {
 
       const injectedTemplate = injectStyle(template.innerHTML, style.innerText);
     
-      const result = `import { register, html } from 'dot';\n
-const template = () => html\`${injectedTemplate}\`;\n
+      let result = `import { register, html } from 'dot';
 ${script.innerText}
 
 register(${script.getAttribute('data-name')});
 
 export default ${script.getAttribute('data-name')};
       `;
+      result = result.replace('// dot:inject', `= () => html\`${injectedTemplate}\``)
       return result;
     },
   };
