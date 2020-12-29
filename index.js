@@ -33,7 +33,7 @@ module.exports = function (snowpackConfig, pluginOptions) {
       let compiledStyle;
       if (style.getAttribute('lang') === 'sass') {
         const sassCode = style.innerText;
-        compiledStyle = sass.renderSync({ data: sassCode });
+        compiledStyle = sass.renderSync({ data: sassCode, outputStyle: "expanded"}).css.toString();
       } else {
         compiledStyle = style.innerText;
       }
