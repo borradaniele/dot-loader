@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/borradaniele/dot-loader#readme",
   "dependencies": {
-    "node-html-parser": "^2.0.0"
+    "node-html-parser": "^2.0.0",
+    "sass": "^1.30.0"
   }
 }
